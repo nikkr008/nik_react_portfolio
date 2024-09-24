@@ -1,13 +1,14 @@
 // src/Routes.js
 import React from 'react';
 import Navbar from '../components/Navbar';
+import HomePage from '../pages/Home';
 
 const Routes = () => {
   return (
     <div>
-      <Navbar />
-      <section id="home" className="h-screen bg-blue-300 flex justify-center items-center">
-        <h1 className="text-4xl">Home Section</h1>
+        <Navbar />
+      <section id="home">
+        <HomePage/>
       </section>
       <section id="services" className="h-screen bg-green-300 flex justify-center items-center">
         <h1 className="text-4xl">Services Section</h1>
