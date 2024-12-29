@@ -62,7 +62,7 @@ const HomePage = () => {
             <br/>Scroll down to explore more about me.
           </p>
           <a
-            href="https://drive.google.com/file/d/1UL7jZZoql0vzs3ujl4HJs0RqtZSRMbUn/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1vQLc7_h0azEHt6IEp5arqOglE_5EMk3I/view?usp=sharing"
             className="inline-block mt-6 bg-purple-600 text-white py-2 px-6 rounded-full hover:bg-purple-500"
             target="_blank" 
             rel="noopener noreferrer"
