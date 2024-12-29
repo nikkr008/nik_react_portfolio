@@ -1,14 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    // Check if all fields have values
+    const isValid = Object.values(formData).every(value => value.trim() !== '');
+    setIsFormValid(isValid);
+  }, [formData]); // Run this effect whenever formData changes
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const clearForm = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      message: ''
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    console.log('Form Data:', {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phone: formData.phone,
+      email: formData.email
+    });
+    
+    clearForm();
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-500 to-purple-600 p-6 flex items-center justify-center">
       <div className="bg-white rounded-3xl p-8 w-full max-w-5xl shadow-xl relative">
+        {/* Success Animation Overlay */}
+        {showSuccess && (
+          <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center z-10 rounded-3xl animate-fade-in">
+            <div className="flex flex-col items-center">
+              <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center">
+                <svg 
+                  className="w-16 h-16 text-green-500 animate-bounce"
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth="2" 
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <p className="text-xl font-semibold mt-4 text-green-500">
+                Message Sent Successfully!
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left Section */}
           <div>
@@ -55,38 +127,63 @@ const ContactForm = () => {
               <div className="grid grid-cols-2 gap-4">
                 <input
                   type="text"
+                  name="firstName"
                   placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   className="bg-gray-100 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  required
                 />
                 <input
                   type="text"
+                  name="lastName"
                   placeholder="Last Name"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   className="bg-gray-100 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  required
                 />
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="Phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   className="bg-gray-100 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  required
                 />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="bg-gray-100 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  required
                 />
               </div>
               
               <textarea
+                name="message"
                 placeholder="Message"
+                value={formData.message}
+                onChange={handleChange}
                 rows={6}
                 className="bg-gray-100 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+                required
               ></textarea>
               
               <button
                 type="submit"
-                className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors duration-200"
+                disabled={!isFormValid}
+                className={`w-full px-6 py-3 rounded-lg transition-colors duration-200 ${
+                  isFormValid 
+                    ? 'bg-purple-600 text-white hover:bg-purple-700 cursor-pointer' 
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
                 SEND
               </button>
@@ -99,4 +196,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-// npm install emailjs
