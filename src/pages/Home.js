@@ -87,7 +87,7 @@ const HomePage = () => {
           </p>
           <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
             <motion.a
-              href="https://drive.google.com/file/d/1vQLc7_h0azEHt6IEp5arqOglE_5EMk3I/view?usp=sharing"
+              href="https://drive.google.com/file/d/1QcOoFtHprvmfreXjZgHv8beC_zMqFn70/view?usp=drive_link"
               className="inline-flex items-center gap-2 bg-purple-600 text-white py-3 px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl"
               target="_blank" 
               rel="noopener noreferrer"
