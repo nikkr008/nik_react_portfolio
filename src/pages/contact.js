@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../utils/firebase';
+import { collection, addDoc, serverTimestamp, doc, setDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,8 @@ const ContactForm = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   useEffect(() => {
     const isValid = Object.values(formData).every(value => value.trim() !== '');
@@ -35,20 +39,41 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data:', {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      phone: formData.phone,
-      email: formData.email
-    });
-    
-    clearForm();
-    setShowSuccess(true);
-    setTimeout(() => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Reference to the specific "Messages" document in "PortfolioDatabase" collection
+      const messagesRef = doc(collection(db, 'PortfolioDatabase'), 'Messages');
+      
+      // Create or update the Messages document with a new entry in the messages array
+      await setDoc(messagesRef, {
+        messages: arrayUnion({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+          email: formData.email,
+          message: formData.message,
+          timestamp: Timestamp.now()
+        }),
+        lastUpdated: serverTimestamp()
+      }, { merge: true });
+
+      console.log('Message added to Messages document');
+      clearForm();
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Error adding document: ', error);
+      setSubmitError('An error occurred while sending your message. Please try again later or contact us directly.');
       setShowSuccess(false);
-    }, 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleFocus = (inputName) => {
@@ -61,42 +86,40 @@ const ContactForm = () => {
 
   return (
     <div className="min-h-screen bg-white p-6 flex items-center justify-center relative overflow-hidden">
-      {/* Background decorative elements removed */}
+      {/* Success Animation Overlay */}
+      {showSuccess && (
+        <div className="absolute inset-0 bg-white flex items-center justify-center z-10 rounded-3xl animate-fade-in">
+          <div className="flex flex-col items-center transform transition-all duration-300 hover:scale-105">
+            <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center shadow-lg">
+              <svg 
+                className="w-16 h-16 text-green-500 animate-pulse"
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M5 13l4 4L19 7" 
+                />
+              </svg>
+            </div>
+            <p className="text-xl font-semibold mt-6 text-green-500 text-center px-4 max-w-lg">
+              Thank you for your message! We'll get back to you soon.
+            </p>
+            <button 
+              className="mt-6 px-6 py-2 bg-green-100 text-green-500 rounded-full text-sm font-medium hover:bg-green-200 transition-colors duration-300"
+              onClick={() => setShowSuccess(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="bg-white rounded-3xl p-8 w-full max-w-5xl shadow-xl relative border border-gray-100">
-        {/* Success Animation Overlay */}
-        {showSuccess && (
-          <div className="absolute inset-0 bg-white flex items-center justify-center z-10 rounded-3xl animate-fade-in">
-            <div className="flex flex-col items-center transform transition-all duration-300 hover:scale-105">
-              <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center shadow-lg">
-                <svg
-                  className="w-16 h-16 text-red-500 animate-pulse"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
-              </div>
-              <p className="text-xl font-semibold mt-6 text-red-500 text-center px-4 max-w-lg">
-                We are currently facing some issues. Please contact us at <span className="font-bold">+91 7808627025</span> or <span className="font-bold">nik.kr008@gmail.com</span>
-              </p>
-              <button 
-                className="mt-6 px-6 py-2 bg-red-100 text-red-500 rounded-full text-sm font-medium hover:bg-red-200 transition-colors duration-300"
-                onClick={() => setShowSuccess(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        )}
-
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left Section */}
           <div className="space-y-8">
@@ -264,16 +287,22 @@ const ContactForm = () => {
               
               <button
                 type="submit"
-                disabled={!isFormValid}
+                disabled={!isFormValid || isSubmitting}
                 className={`w-full px-6 py-3 rounded-lg transition-all duration-300 transform font-medium text-base ${
-                  isFormValid 
+                  isFormValid && !isSubmitting
                     ? 'bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg hover:-translate-y-1 cursor-pointer' 
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
               >
-                {isFormValid ? 'SEND MESSAGE' : 'COMPLETE THE FORM'}
+                {isSubmitting ? 'SENDING...' : isFormValid ? 'SEND MESSAGE' : 'COMPLETE THE FORM'}
               </button>
             </form>
+            
+            {submitError && (
+              <div className="mt-4 text-red-500 text-center font-medium">
+                {submitError}
+              </div>
+            )}
           </div>
         </div>
       </div>
