@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import logo from '../imgages/logo.png'
-import { NAV_LINKS, CV_URL } from '../utils/constants';
+import { CV_URL, NAV_LINKS } from '../utils/constants';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { cvUrl, status } = useSelector((state) => state.cv);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -36,8 +38,13 @@ const Navbar = () => {
             </a>
           ))}
           {/* "Hire Me" Button */}
-          <a href={CV_URL} target="_blank" rel="noopener noreferrer" className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-500">
-            Hire Me
+          <a 
+            href={cvUrl || CV_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={`bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-500 ${!cvUrl && 'opacity-70 cursor-not-allowed'}`}
+          >
+            {status === 'loading' ? 'Loading...' : 'Hire Me'}
           </a>
         </div>
       </div>
@@ -56,6 +63,16 @@ const Navbar = () => {
               </a>
             </li>
           ))}
+          <li>
+            <a 
+              href={cvUrl || "#"} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={`bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-500 inline-block mt-4 ${!cvUrl && 'opacity-70 cursor-not-allowed'}`}
+            >
+              {status === 'loading' ? 'Loading...' : 'Hire Me'}
+            </a>
+          </li>
         </ul>
       )}
     </nav>
