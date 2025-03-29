@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import appIcon from '../imgages/app-icon.png';
 import designIcon from '../imgages/design-icon.png';
 import codeIcon from '../imgages/code-icon.png';
-import { SERVICES, SKILL_CATEGORIES } from '../utils/constants';
+import { SERVICES } from '../utils/constants';
 
 const Services = () => {
   // Map service icons to their imported images

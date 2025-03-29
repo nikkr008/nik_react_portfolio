@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../utils/firebase';
-import { collection, addDoc, serverTimestamp, doc, setDoc, arrayUnion, Timestamp } from 'firebase/firestore';
+import { collection, serverTimestamp, doc, setDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { GithubSvg, InstagramSvg, TwitterSvg, LinkedinSvg, LocationSvg, EmailSvg, PhoneSvg, CheckmarkSvg } from '../utils/svgs';
 import { SOCIAL_LINKS, PERSONAL_INFO } from '../utils/constants';
 

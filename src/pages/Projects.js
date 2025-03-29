@@ -46,7 +46,7 @@ const Projects = () => {
       setFilteredProjects(formattedProjects);
     } else {
       setFilteredProjects(formattedProjects.filter(project => 
-        project.category.includes(category.toUpperCase())
+        project.category.includes(category.toUpperCase() + ' DEVELOPMENT')
       ));
     }
   };
