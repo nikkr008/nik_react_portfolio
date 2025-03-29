@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../imgages/logo.png'
+import { NAV_LINKS, CV_URL } from '../utils/constants';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,13 +26,17 @@ const Navbar = () => {
 
         {/* Links + "Hire Me" Button (Hidden on mobile, shown on larger screens) */}
         <div className="hidden md:flex items-center space-x-8 font-semibold ml-auto ">
-          <a href="#home" className="hover:text-gray-500">Home</a>
-          <a href="#services" className="hover:text-gray-500">Services</a>
-          <a href="#projects" className="hover:text-gray-500">Projects</a>
-          <a href="#about" className="hover:text-gray-500">About</a>
-          <a href="#contact" className="hover:text-gray-500">Contact</a>
+          {NAV_LINKS.map((link) => (
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="hover:text-gray-500"
+            >
+              {link.name}
+            </a>
+          ))}
           {/* "Hire Me" Button */}
-          <a href="#hire-me" className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-500">
+          <a href={CV_URL} target="_blank" rel="noopener noreferrer" className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-500">
             Hire Me
           </a>
         </div>
@@ -40,11 +45,17 @@ const Navbar = () => {
       {/* Mobile Menu (Visible when hamburger is clicked) */}
       {isOpen && (
         <ul className="md:hidden bg-slate-100 text-center space-y-4 h-screen py-4 backdrop-blur-lg bg-opacity-5 z-50">
-          <li><a href="#home" onClick={toggleMenu} className="text-black hover:text-gray-400">Home</a></li>
-          <li><a href="#services" onClick={toggleMenu} className="text-black hover:text-gray-400">Services</a></li>
-          <li><a href="#projects" onClick={toggleMenu} className="text-black hover:text-gray-400">Projects</a></li>
-          <li><a href="#about" onClick={toggleMenu} className="text-black hover:text-gray-400">About</a></li>
-          <li><a href="#contact" onClick={toggleMenu} className="text-black hover:text-gray-400">Contact</a></li>
+          {NAV_LINKS.map((link) => (
+            <li key={link.name}>
+              <a 
+                href={link.href} 
+                onClick={toggleMenu} 
+                className="text-black hover:text-gray-400"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
         </ul>
       )}
     </nav>
