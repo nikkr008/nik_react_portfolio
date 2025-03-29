@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCvUrl } from '../redux/cvSlice';
 import person from '../imgages/person.png';
 import { 
   GithubSvg, 
@@ -19,10 +21,26 @@ import { SOCIAL_LINKS, CV_URL, PERSONAL_INFO } from '../utils/constants';
 
 const HomePage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const dispatch = useDispatch();
+  const { cvUrl, status } = useSelector((state) => state.cv);
   
   useEffect(() => {
     setIsLoaded(true);
-  }, []);
+    dispatch(fetchCvUrl());
+  }, [dispatch]);
+  
+  useEffect(() => {
+    if (status === 'failed') {
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 5000); // Hide alert after 5 seconds
+    }
+  }, [status]);
+  
+  // Use the CV_URL as fallback if API fails
+  const downloadUrl = status === 'succeeded' && cvUrl ? cvUrl : CV_URL;
   
   const floatingElements = [
     { type: 'div', className: 'absolute top-10 left-20 opacity-40 w-32 h-32 bg-purple-200 rounded-full blur-md', delay: 0 },
@@ -48,6 +66,11 @@ const HomePage = () => {
 
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-purple-50 z-0">
+      {showAlert && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded z-50 shadow-lg">
+          <p className="font-medium">We are currently working on our CV section. Please try again later.</p>
+        </div>
+      )}
       <div className="absolute top-0 left-0 w-full h-full z-0">
         {floatingElements.map((element, index) => {
           const floatingAnimation = {
@@ -97,7 +120,7 @@ const HomePage = () => {
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-serif text-gray-900 leading-tight">
             <span className="block">{PERSONAL_INFO.NAME}</span>
           </h1>
-          <h2 className="mt-2 text-2xl md:text-3xl text-purple-600 font-medium">
+          <h2 className="mt-2 text-xl md:text-2xl text-purple-600 font-medium">
             {PERSONAL_INFO.ROLE}
           </h2>
           <p className="mt-6 text-xl text-gray-600 max-w-lg">
@@ -105,7 +128,7 @@ const HomePage = () => {
           </p>
           <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
             <motion.a
-              href={CV_URL}
+              href={downloadUrl}
               className="inline-flex items-center gap-2 bg-purple-600 text-white py-3 px-8 rounded-full hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl"
               target="_blank" 
               rel="noopener noreferrer"
@@ -113,7 +136,7 @@ const HomePage = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <DownloadSvg />
-              Download CV
+              {status === 'loading' ? 'Loading CV...' : 'Download CV'}
             </motion.a>
             <motion.a 
               href="#contact"
