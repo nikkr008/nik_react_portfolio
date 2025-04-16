@@ -36,11 +36,11 @@ export const SKILLS = {
 
 // Navigation links
 export const NAV_LINKS = [
-  { name: 'Home', href: '#home' },
-  { name: 'Services', href: '#services' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'About', href: '#about' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 // Services data
@@ -78,7 +78,9 @@ export const PROJECTS = [
     title: 'Klynk App',
     category: 'APP DEVELOPMENT',
     image: 'portfolio/KlyncAppImg.png',
-    description: 'Mobile application for guided cooking',
+    description: 'Mobile application for guided cooking with step-by-step recipes and ingredient management',
+    technologies: ['React Native', 'Firebase', 'Redux', 'Expo'],
+    features: ['Recipe Search', 'Guided Cooking', 'Shopping Lists', 'Social Sharing'],
     link: '#',
   },
   {
@@ -86,7 +88,9 @@ export const PROJECTS = [
     title: 'Movie List App',
     category: 'APP DEVELOPMENT',
     image: 'portfolio/moviesApp.png',
-    description: 'Mobile application for tracking and organizing movies',
+    description: 'Mobile application for tracking and organizing movies with personalized recommendations',
+    technologies: ['React Native', 'TMDb API', 'Redux', 'Styled Components'],
+    features: ['Watchlist', 'Recommendations', 'Reviews', 'Offline Access'],
     link: '#',
   },
   {
@@ -94,7 +98,9 @@ export const PROJECTS = [
     title: 'Travel Website',
     category: 'WEB DEVELOPMENT',
     image: 'portfolio/travelWebsite.png',
-    description: 'One-stop platform for travel planning',
+    description: 'One-stop platform for travel planning with itinerary builder and booking integration',
+    technologies: ['React.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+    features: ['Itinerary Builder', 'Hotel Booking', 'Activity Search', 'User Reviews'],
     link: '#',
   },
   {
@@ -102,7 +108,9 @@ export const PROJECTS = [
     title: 'Bluetooth Printer App',
     category: 'APP DEVELOPMENT',
     image: 'portfolio/bluetoothPrinter.png',
-    description: 'Mobile application for wireless printing',
+    description: 'Mobile application for wireless printing from your device to any Bluetooth-enabled printer',
+    technologies: ['React Native', 'Bluetooth API', 'Native Modules', 'Redux'],
+    features: ['Device Discovery', 'Print Preview', 'Multiple Formats', 'Print Queue'],
     link: '#',
   },
   {
@@ -110,7 +118,9 @@ export const PROJECTS = [
     title: 'IoT Control System',
     category: 'DIGITAL ECOSYSTEM',
     image: 'portfolio/IotModule.jpg',
-    description: 'Smart device control interface',
+    description: 'Smart device control interface for managing connected home devices from anywhere',
+    technologies: ['React.js', 'Node.js', 'MQTT', 'WebSockets'],
+    features: ['Remote Control', 'Automation', 'Energy Monitoring', 'Voice Commands'],
     link: '#',
   },
 ];

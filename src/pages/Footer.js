@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { GithubSvg, InstagramSvg, TwitterSvg, LinkedinSvg, ArrowUpSvg } from '../utils/svgs';
 import { SOCIAL_LINKS, PERSONAL_INFO, FOOTER_LINKS, FOOTER_SERVICES } from '../utils/constants';
 
@@ -63,13 +64,13 @@ const Footer = () => {
                 <ul className="space-y-4">
                   {FOOTER_LINKS.map((item) => (
                     <li key={item.id} className="hover:-translate-y-0.5 transition-transform duration-100">
-                      <a 
-                        href={`#${item.id}`} 
+                      <Link 
+                        to={`/${item.id}`} 
                         className="group flex items-center text-gray-300 hover:text-white transition-colors duration-150"
                       >
                         <span className="inline-block w-2 h-2 bg-purple-500 rounded-full mr-3 group-hover:scale-110 transition-transform duration-150"></span>
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -101,13 +102,13 @@ const Footer = () => {
               <ul className="space-y-4">
                 {FOOTER_SERVICES.map((service) => (
                   <li key={service.id} className="hover:-translate-y-0.5 transition-transform duration-100">
-                    <a 
-                      href={`#${service.id}`} 
+                    <Link 
+                      to={`/services#${service.id}`} 
                       className="group flex items-center text-gray-300 hover:text-white transition-colors duration-150"
                     >
                       <span className="inline-block w-2 h-2 bg-purple-500 rounded-full mr-3 group-hover:scale-110 transition-transform duration-150"></span>
                       {service.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

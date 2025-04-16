@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRightLongSvg, SquareSvg, TriangleSvg, WaveSvg, PointsSvg, CircleSvg } from '../utils/svgs';
 import { PROJECT_CATEGORIES, PROJECTS } from '../utils/constants';
@@ -11,6 +12,7 @@ import bluetoothPrinter from '../imgages/portfolio/bluetoothPrinter.png';
 import iotModule from '../imgages/portfolio/IotModule.jpg';
 
 const Projects = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('All');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,6 +51,10 @@ const Projects = () => {
         project.category.includes(category.toUpperCase() + ' DEVELOPMENT')
       ));
     }
+  };
+
+  const handleViewDetails = (projectId) => {
+    navigate(`/project/${projectId}`);
   };
 
   const floatingElements = [
@@ -184,7 +190,7 @@ const Projects = () => {
                         className="mt-4 px-6 py-2 bg-white text-blue-600 rounded-full hover:bg-blue-50 transition-colors duration-300 font-medium flex items-center mx-auto"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => window.open(project.link, '_blank')}
+                        onClick={() => handleViewDetails(project.id)}
                       >
                         View Details
                         <ArrowRightLongSvg />

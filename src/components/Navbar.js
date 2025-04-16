@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import logo from '../imgages/logo.png'
 import { CV_URL, NAV_LINKS } from '../utils/constants';
@@ -16,7 +17,9 @@ const Navbar = () => {
       <div className="flex justify-between items-center p-4 w-full md:w-4/5 mx-auto">
         {/* Logo Section */}
         <div className="flex items-center">
-          <img src={logo} alt="img" className="h-8 w-auto" />
+          <Link to="/">
+            <img src={logo} alt="img" className="h-8 w-auto" />
+          </Link>
         </div>
 
         {/* Hamburger Icon (Visible on mobile) */}
@@ -29,13 +32,13 @@ const Navbar = () => {
         {/* Links + "Hire Me" Button (Hidden on mobile, shown on larger screens) */}
         <div className="hidden md:flex items-center space-x-8 font-semibold ml-auto ">
           {NAV_LINKS.map((link) => (
-            <a 
+            <Link 
               key={link.name} 
-              href={link.href} 
+              to={link.href.replace('#', '')} 
               className="hover:text-gray-500"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
           {/* "Hire Me" Button */}
           <a 
@@ -54,13 +57,13 @@ const Navbar = () => {
         <ul className="md:hidden bg-slate-100 text-center space-y-4 h-screen py-4 backdrop-blur-lg bg-opacity-5 z-50">
           {NAV_LINKS.map((link) => (
             <li key={link.name}>
-              <a 
-                href={link.href} 
+              <Link 
+                to={link.href.replace('#', '')} 
                 onClick={toggleMenu} 
                 className="text-black hover:text-gray-400"
               >
                 {link.name}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
