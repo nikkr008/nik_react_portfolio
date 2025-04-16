@@ -170,9 +170,9 @@ const HomePage = () => {
           <motion.img
             src={person}
             alt="Profile"
-            className="object-contain w-full h-full"
+            className="object-contain w-full h-full mt-2"
             initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            animate={{ y: 20, opacity: 1 }}
             transition={{ 
               type: "spring",
               stiffness: 100,
