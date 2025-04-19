@@ -6,11 +6,11 @@ import { PROJECT_CATEGORIES, PROJECTS } from '../utils/constants';
 import Footer from './Footer';
 
 // Import project images
-import klynkApp from '../imgages/portfolio/KlyncAppImg.png';
-import moviesApp from '../imgages/portfolio/moviesApp.png';
-import travelWebsite from '../imgages/portfolio/travelWebsite.png';
-import bluetoothPrinter from '../imgages/portfolio/bluetoothPrinter.png';
-import iotModule from '../imgages/portfolio/IotModule.jpg';
+import klynkApp from '../imgages/projectImages/klyncApp/KlyncAppImg.png';
+import moviesApp from '../imgages/projectImages/moviesApp/moviesApp.png';
+import travelWebsite from '../imgages/projectImages/travelWebsite/travelWebsite.png';
+import bluetoothPrinter from '../imgages/projectImages/bluetoothThPrinter/bluetoothPrinter.png';
+import iotModule from '../imgages/projectImages/iotModule/IotModule.jpg';
 
 const Projects = () => {
   const navigate = useNavigate();
