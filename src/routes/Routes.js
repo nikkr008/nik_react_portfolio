@@ -37,7 +37,6 @@ const Routes = () => {
             </section>
           </div>
         } />
-        <Route path="/projects" element={<Projects />} />
         <Route path="/project/:id" element={<ProjectDetail />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </ReactRoutes>

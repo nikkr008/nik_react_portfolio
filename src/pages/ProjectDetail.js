@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeftLongSvg } from '../utils/svgs';
 import { PROJECTS } from '../utils/constants';
+import Footer from './Footer';
 
 // Import project images
 import klynkApp from '../imgages/portfolio/KlyncAppImg.png';
@@ -96,83 +97,161 @@ const ProjectDetail = () => {
     };
   }, [project, isPaused, nextImage]);
 
+  const fadeInUp = {
+    initial: { y: 60, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   if (!project) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#0a0a0a]">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-600 to-blue-50 py-20">
+    <div className="min-h-screen bg-[#0a0a0a] py-20 overflow-hidden">
       <motion.div 
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16"
         initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
-        <button 
+        <motion.button 
           onClick={() => navigate('/projects')}
-          className="flex items-center text-white mb-8 hover:text-blue-200 transition-colors"
+          className="flex items-center text-white mb-8 hover:text-blue-200 transition-all transform hover:translate-x-[-8px]"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           <ArrowLeftLongSvg />
-          <span className="ml-2">Back to Projects</span>
-        </button>
+          <span className="ml-2 text-lg">Back to Projects</span>
+        </motion.button>
 
-        <div className="flex flex-col-reverse lg:flex-row gap-12">
+        <motion.div 
+          className="flex flex-col-reverse lg:flex-row gap-12"
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+        >
           {/* Left Side - Project Info */}
-          <div className="w-full lg:w-3/5 mt-12 lg:mt-0">
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-              <div className="flex flex-wrap gap-3 mb-6">
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
+          <motion.div 
+            className="w-full lg:w-3/5 mt-12 lg:mt-0"
+            variants={fadeInUp}
+          >
+            <div className="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/10">
+              <motion.div 
+                className="flex flex-wrap gap-3 mb-6"
+                variants={fadeInUp}
+              >
+                <span className="bg-blue-500/20 text-white text-sm font-medium px-4 py-2 rounded-full backdrop-blur-sm border border-blue-500/30">
                   {project.category}
                 </span>
-              </div>
+              </motion.div>
               
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{project.title}</h1>
-              <p className="text-lg text-gray-700 mb-8">{project.description}</p>
+              <motion.h1 
+                className="text-4xl font-bold text-white mb-4 leading-tight"
+                variants={fadeInUp}
+              >
+                {project.title}
+              </motion.h1>
               
-              {/* Project details section */}
-              <div className="border-t border-gray-200 pt-8 mt-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Project Details</h2>
+              <motion.p 
+                className="text-xl text-blue-50/90 mb-8 leading-relaxed"
+                variants={fadeInUp}
+              >
+                {project.description}
+              </motion.p>
+              
+              <motion.div 
+                className="border-t border-white/10 pt-8 mt-8"
+                variants={fadeInUp}
+              >
+                <h2 className="text-3xl font-bold text-white mb-8">Project Details</h2>
                 
-                <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4">Overview</h3>
-                  <p className="text-gray-700">
-                    This project showcases advanced skills in {project.category.toLowerCase()}. 
-                    It was built with modern technologies and best practices in mind.
-                  </p>
-                </div>
+                <div className="space-y-12">
+                  <motion.div 
+                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <h3 className="text-2xl font-semibold text-white mb-4">Overview</h3>
+                    <p className="text-blue-50/90 text-lg leading-relaxed">
+                      This project showcases advanced skills in {project.category.toLowerCase()}. 
+                      It was built with modern technologies and best practices in mind.
+                    </p>
+                  </motion.div>
                 
-                <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies && project.technologies.map((tech, index) => (
-                      <span key={index} className="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                  <motion.div 
+                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <h3 className="text-2xl font-semibold text-white mb-4">Technologies Used</h3>
+                    <div className="flex flex-wrap gap-3">
+                      {project.technologies && project.technologies.map((tech, index) => (
+                        <motion.span 
+                          key={index} 
+                          className="bg-blue-500/20 text-white text-sm font-medium px-4 py-2 rounded-full backdrop-blur-sm border border-blue-500/30"
+                          whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.3)" }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
                 
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">Key Features</h3>
-                  <ul className="list-disc pl-5 text-gray-700 space-y-2">
-                    {project.features && project.features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
+                  <motion.div 
+                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <h3 className="text-2xl font-semibold text-white mb-4">Key Features</h3>
+                    <ul className="space-y-3 text-blue-50/90 text-lg">
+                      {project.features && project.features.map((feature, index) => (
+                        <motion.li 
+                          key={index}
+                          className="flex items-center"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <span className="mr-3 text-blue-400">•</span>
+                          {feature}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Right Side - Mobile Device with Image Carousel */}
-          <div className="w-full lg:w-2/5 flex items-center justify-center">
-            <div className="relative">
+          <motion.div 
+            className="w-full lg:w-2/5 flex items-center justify-center relative"
+            variants={fadeInUp}
+          >
+            {/* Gradient background for phone */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 blur-3xl transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-[500px] h-[500px] rounded-full"></div>
+            
+            <div className="relative transform hover:scale-105 transition-transform duration-500 z-10">
               {/* Mobile phone frame */}
-              <div className="relative w-[320px] h-[650px] bg-gray-900 rounded-[45px] p-4 shadow-xl border-4 border-gray-800">
+              <motion.div 
+                className="relative w-[320px] h-[650px] bg-gray-900 rounded-[45px] p-4 shadow-[0_0_40px_rgba(59,130,246,0.3)] border-4 border-gray-800"
+                initial={{ rotateY: -20 }}
+                animate={{ rotateY: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+              >
                 {/* Screen bezel */}
                 <div className="absolute top-0 left-0 right-0 h-10 flex justify-center items-start">
                   <div className="w-44 h-7 bg-black rounded-b-2xl"></div>
@@ -184,70 +263,83 @@ const ProjectDetail = () => {
                   onMouseLeave={() => setIsPaused(false)}
                 >
                   {/* Image carousel */}
-                  <div className="w-full h-full relative overflow-hidden">
-                    {project.carouselImages && project.carouselImages.map((image, index) => (
-                      <div 
-                        key={image.id}
-                        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                          index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                        }`}
-                      >
-                        <img 
-                          src={image.src} 
-                          alt={image.alt} 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ))}
+                  <AnimatePresence mode="wait">
+                    <motion.div 
+                      key={currentImageIndex}
+                      className="absolute inset-0"
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <img 
+                        src={project.carouselImages[currentImageIndex].src} 
+                        alt={project.carouselImages[currentImageIndex].alt} 
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                     
-                    {/* Navigation arrows */}
-                    <button 
+                  {/* Navigation arrows - Fixed positioning */}
+                  <div className="absolute inset-0 flex items-center justify-between px-2 z-20">
+                    <motion.button 
                       onClick={() => {
                         prevImage();
                         setIsPaused(true);
                         setTimeout(() => setIsPaused(false), 5000);
                       }}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+                      className="w-10 h-10 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       &#10094;
-                    </button>
-                    <button 
+                    </motion.button>
+                    <motion.button 
                       onClick={() => {
                         nextImage();
                         setIsPaused(true);
                         setTimeout(() => setIsPaused(false), 5000);
                       }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+                      className="w-10 h-10 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       &#10095;
-                    </button>
+                    </motion.button>
+                  </div>
                     
-                    {/* Dots indicator */}
-                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
-                      {project.carouselImages && project.carouselImages.map((_, index) => (
-                        <button 
-                          key={index} 
-                          onClick={() => {
-                            setCurrentImageIndex(index);
-                            setIsPaused(true);
-                            setTimeout(() => setIsPaused(false), 5000);
-                          }}
-                          className={`w-2 h-2 rounded-full transition-colors ${
-                            index === currentImageIndex ? 'bg-blue-600' : 'bg-gray-400'
-                          }`}
-                        />
-                      ))}
-                    </div>
+                  {/* Dots indicator */}
+                  <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
+                    {project.carouselImages && project.carouselImages.map((_, index) => (
+                      <motion.button 
+                        key={index} 
+                        onClick={() => {
+                          setCurrentImageIndex(index);
+                          setIsPaused(true);
+                          setTimeout(() => setIsPaused(false), 5000);
+                        }}
+                        className={`w-3 h-3 rounded-full transition-all ${
+                          index === currentImageIndex ? 'bg-blue-500 scale-125' : 'bg-white/50'
+                        }`}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
+                      />
+                    ))}
                   </div>
                 </div>
                 
                 {/* Home button */}
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-20 h-1.5 bg-gray-700 rounded-full"></div>
-              </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </motion.div>
+      
+      {/* Add Footer with margin */}
+      <div className="mt-32">
+        <Footer />
+      </div>
     </div>
   );
 };

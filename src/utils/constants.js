@@ -36,11 +36,11 @@ export const SKILLS = {
 
 // Navigation links
 export const NAV_LINKS = [
-  { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: '#home' },
+  { name: 'Services', href: '#services' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'About', href: '#about' },
+  { name: 'Contact', href: '#contact' },
 ];
 
 // Services data
