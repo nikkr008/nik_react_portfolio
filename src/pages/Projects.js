@@ -5,12 +5,8 @@ import { ArrowRightLongSvg, SquareSvg, TriangleSvg, WaveSvg, PointsSvg, CircleSv
 import { PROJECT_CATEGORIES, PROJECTS } from '../utils/constants';
 import Footer from './Footer';
 
-// Import project images
-import klynkApp from '../imgages/projectImages/klyncApp/KlyncAppImg.png';
-import moviesApp from '../imgages/projectImages/moviesApp/moviesApp.png';
-import travelWebsite from '../imgages/projectImages/travelWebsite/travelWebsite.png';
-import bluetoothPrinter from '../imgages/projectImages/bluetoothThPrinter/bluetoothPrinter.png';
-import iotModule from '../imgages/projectImages/iotModule/IotModule.jpg';
+// Import project images from centralized image manager
+import { ProjectMainImages, ProjectImageMapping } from '../imgages';
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -20,19 +16,10 @@ const Projects = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [filteredProjects, setFilteredProjects] = useState([]);
 
-  // Map of project images
-  const projectImages = {
-    'portfolio/KlyncAppImg.png': klynkApp,
-    'portfolio/moviesApp.png': moviesApp,
-    'portfolio/travelWebsite.png': travelWebsite,
-    'portfolio/bluetoothPrinter.png': bluetoothPrinter,
-    'portfolio/IotModule.jpg': iotModule
-  };
-
   // Format projects to include the actual image objects
   const formattedProjects = PROJECTS.map(project => ({
     ...project,
-    imageObj: projectImages[project.image]
+    imageObj: ProjectImageMapping[project.image]
   }));
 
   useEffect(() => {

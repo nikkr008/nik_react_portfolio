@@ -5,12 +5,8 @@ import { ArrowLeftLongSvg } from '../utils/svgs';
 import { PROJECTS } from '../utils/constants';
 import Footer from './Footer';
 
-// Import project images
-import klynkApp from '../imgages/projectImages/klyncApp/KlyncAppImg.png';
-import moviesApp from '../imgages/projectImages/moviesApp/moviesApp.png';
-import travelWebsite from '../imgages/projectImages/travelWebsite/travelWebsite.png';
-import bluetoothPrinter from '../imgages/projectImages/bluetoothThPrinter/bluetoothPrinter.png';
-import iotModule from '../imgages/projectImages/iotModule/IotModule.jpg';
+// Import image utilities from the central file
+import { ProjectImages, ProjectImageMapping } from '../imgages';
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -21,38 +17,44 @@ const ProjectDetail = () => {
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
 
-  // Map of project images
-  const projectImages = {
-    'portfolio/KlyncAppImg.png': klynkApp,
-    'portfolio/moviesApp.png': moviesApp,
-    'portfolio/travelWebsite.png': travelWebsite,
-    'portfolio/bluetoothPrinter.png': bluetoothPrinter,
-    'portfolio/IotModule.jpg': iotModule
+  // Map project ID to project image collection key
+  const projectIdToKey = {
+    1: 'klyncApp',
+    2: 'moviesApp',
+    3: 'travelWebsite',
+    4: 'bluetoothPrinter',
+    5: 'iotModule'
   };
-
-  // Dummy additional images (to be replaced later with real images)
-  const dummyAdditionalImages = [
-    { id: 1, src: bluetoothPrinter, alt: "Additional view 1" },
-    { id: 2, src: moviesApp, alt: "Additional view 2" },
-    { id: 3, src: travelWebsite, alt: "Additional view 3" },
-  ];
 
   useEffect(() => {
     // Find the project by ID
     const projectData = PROJECTS.find(p => p.id === parseInt(id));
     
     if (projectData) {
-      // Add the image object to the project data
-      setProject({
-        ...projectData,
-        imageObj: projectImages[projectData.image],
-        // Add carousel images (main image + dummy additional ones)
-        carouselImages: [
-          { id: 0, src: projectImages[projectData.image], alt: projectData.title },
-          ...dummyAdditionalImages
-        ]
-      });
-      setIsLoaded(true);
+      const projectId = projectData.id;
+      const projectKey = projectIdToKey[projectId];
+      
+      if (projectKey && ProjectImages[projectKey]) {
+        const projectImagesCollection = ProjectImages[projectKey];
+        
+        // Create carousel images array from the collection
+        const carouselImages = projectImagesCollection.all.map((img, index) => ({
+          id: index,
+          src: img,
+          alt: `${projectData.title} View ${index}`
+        }));
+        
+        // Add the image object to the project data
+        setProject({
+          ...projectData,
+          imageObj: ProjectImageMapping[projectData.image],
+          carouselImages
+        });
+        setIsLoaded(true);
+      } else {
+        console.error(`No images found for project with ID: ${projectId}`);
+        navigate('/projects');
+      }
     } else {
       // If project not found, redirect to projects page
       navigate('/projects');
