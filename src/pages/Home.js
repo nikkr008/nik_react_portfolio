@@ -65,7 +65,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-purple-50 z-0">
+    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden z-0" style={{ backgroundColor: 'var(--background-color)', color: 'var(--text-color)' }}>
       {showAlert && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded z-50 shadow-lg">
           <p className="font-medium">We are currently working on our CV section. Please try again later.</p>

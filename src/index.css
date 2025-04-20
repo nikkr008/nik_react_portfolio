@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --navbar-bg: rgba(241, 245, 249, 0.5);
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.1);
+  --heading-color: #111827;
+  --subtext-color: #4b5563;
+}
+
+.dark-mode {
+  --background-color: #0a0a0a;
+  --text-color: #f8f9fa; 
+  --navbar-bg: rgba(15, 15, 15, 0.5);
+  --card-bg: rgba(20, 20, 20, 0.8);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --heading-color: #ffffff;
+  --subtext-color: #d1d5db;
+}
+
+.light-mode {
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --navbar-bg: rgba(241, 245, 249, 0.5);
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.1);
+  --heading-color: #111827;
+  --subtext-color: #4b5563;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+  color: var(--heading-color);
+}
+
+.dark-mode p {
+  color: var(--text-color);
+}
+
+.dark-mode .card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}

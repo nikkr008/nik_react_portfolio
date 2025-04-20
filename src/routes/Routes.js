@@ -9,14 +9,17 @@ import Contact from '../pages/contact';
 import Footer from '../pages/Footer';
 import Projects from '../pages/Projects';
 import ProjectDetail from '../pages/ProjectDetail';
+import { useTheme } from '../utils/ThemeContext';
 
 const Routes = () => {
+  const { isDarkMode } = useTheme();
+  
   return (
     <Router>
       <Navbar />
       <ReactRoutes>
         <Route path="/" element={
-          <div>
+          <div className={isDarkMode ? 'dark-mode' : 'light-mode'}>
             <section id="home">
               <HomePage />
             </section>
@@ -37,7 +40,11 @@ const Routes = () => {
             </section>
           </div>
         } />
-        <Route path="/project/:id" element={<ProjectDetail />} />
+        <Route path="/project/:id" element={
+          <div className={isDarkMode ? 'dark-mode' : 'light-mode'}>
+            <ProjectDetail />
+          </div>
+        } />
         <Route path="*" element={<Navigate to="/" replace />} />
       </ReactRoutes>
     </Router>

@@ -4,7 +4,7 @@ import { PERSONAL_INFO, SKILLS } from '../utils/constants';
 
 const AboutMe = () => {
   return (
-    <section className="relative bg-white py-16 px-6 md:px-16 font-poppins">
+    <section className="relative py-16 px-6 md:px-16 font-poppins" style={{ backgroundColor: 'var(--background-color)', color: 'var(--text-color)' }}>
       <div className="flex flex-col items-center text-center mb-10">
         {/* Header */}
         <h3 className="text-purple-600 font-semibold uppercase tracking-wide">
@@ -15,15 +15,15 @@ const AboutMe = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row md:gap-10 flex-col-reverse gap-6 items-center">
         {/* Left Section - Text */}
-        <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500 transform transition-all duration-500 hover:shadow-xl">
-          <p className="text-gray-700 text-xl font-semibold mb-4 flex items-center">
+        <div className="p-6 rounded-xl shadow-lg border-l-4 border-purple-500 transform transition-all duration-500 hover:shadow-xl" style={{ backgroundColor: 'var(--navbar-bg)' }}>
+          <p className="text-xl font-semibold mb-4 flex items-center" style={{ color: 'var(--text-color)' }}>
             <span className="inline-block w-2 h-8 bg-purple-600 mr-3"></span>
             Hello, I'm {PERSONAL_INFO.NAME}
           </p>
-          <p className="text-gray-600 mb-8 leading-relaxed text-lg border-b border-purple-100 pb-4">
+          <p className="mb-8 leading-relaxed text-lg border-b border-purple-100 pb-4" style={{ color: 'var(--text-color)' }}>
             {PERSONAL_INFO.ROLE}
           </p>
-          <p className="text-gray-600 mb-8 leading-relaxed">
+          <p className="mb-8 leading-relaxed" style={{ color: 'var(--text-color)' }}>
             {PERSONAL_INFO.BIO}
             <br className="mb-2" />
             <span className="inline-block bg-purple-100 px-4 py-2 rounded-lg text-purple-700 font-medium mt-3 shadow-sm transition-all duration-300 hover:bg-purple-200">

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeftLongSvg } from '../utils/svgs';
 import { PROJECTS } from '../utils/constants';
 import Footer from './Footer';
+import { useTheme } from '../utils/ThemeContext';
 
 // Import image utilities from the central file
 import { ProjectImages, ProjectImageMapping } from '../imgages';
@@ -16,6 +17,7 @@ const ProjectDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
+  const { isDarkMode } = useTheme();
 
   // Map project ID to project image collection key
   const projectIdToKey = {
@@ -224,7 +226,7 @@ const ProjectDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] py-20 overflow-hidden">
+    <div className="min-h-screen py-20 overflow-hidden" style={{ backgroundColor: 'var(--background-color)', color: 'var(--text-color)' }}>
       <motion.div 
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16"
         initial={{ opacity: 0 }}
@@ -233,9 +235,10 @@ const ProjectDetail = () => {
       >
         <motion.button 
           onClick={() => navigate('/projects')}
-          className="flex items-center text-white mb-8 hover:text-blue-200 transition-all transform hover:translate-x-[-8px]"
+          className="flex items-center mb-8 hover:text-blue-200 transition-all transform hover:translate-x-[-8px]"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          style={{ color: 'var(--text-color)' }}
         >
           <ArrowLeftLongSvg />
           <span className="ml-2 text-lg font-medium">Back to Projects</span>
@@ -253,49 +256,71 @@ const ProjectDetail = () => {
             className="w-full lg:w-3/5"
             variants={fadeInUp}
           >
-            <div className="bg-gradient-to-br from-[#1a1a1a]/90 to-[#252525]/80 backdrop-blur-xl rounded-3xl p-8 shadow-[0_10px_50px_rgba(0,0,0,0.3)] border border-white/10 h-full">
+            <div className={`rounded-3xl p-8 h-full ${isDarkMode 
+              ? 'bg-gradient-to-br from-[#1a1a1a]/90 to-[#252525]/80 shadow-[0_10px_50px_rgba(0,0,0,0.3)] border border-white/10' 
+              : 'bg-gradient-to-br from-gray-50 to-white/90 shadow-[0_10px_50px_rgba(0,0,0,0.1)] border border-gray-200/50'}`}
+              style={{ backdropFilter: 'blur(12px)' }}
+            >
               <motion.div 
                 className="flex flex-wrap gap-3 mb-6"
                 variants={fadeInUp}
               >
-                <span className="bg-blue-500/20 text-white text-sm font-medium px-4 py-2 rounded-full backdrop-blur-sm border border-blue-500/30">
+                <span className={`text-sm font-medium px-4 py-2 rounded-full backdrop-blur-sm ${isDarkMode
+                  ? 'bg-blue-500/20 text-white border border-blue-500/30'
+                  : 'bg-blue-100 text-blue-900 border border-blue-200'}`}
+                >
                   {project.category}
                 </span>
               </motion.div>
               
               <motion.h1 
-                className="text-3xl font-bold text-white mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100"
+                className={`text-3xl font-bold mb-4 leading-tight ${isDarkMode
+                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100'
+                  : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-600'}`}
                 variants={fadeInUp}
               >
                 {project.title}
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-blue-50/90 mb-6 leading-relaxed"
+                className={`text-xl mb-6 leading-relaxed ${isDarkMode
+                  ? 'text-blue-50/90'
+                  : 'text-gray-700'}`}
                 variants={fadeInUp}
               >
                 {project.description}
               </motion.p>
               
               <motion.div 
-                className="border-t border-white/10 pt-8 mt-8"
+                className={`border-t pt-8 mt-8 ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}
                 variants={fadeInUp}
               >
-                <h2 className="text-3xl font-bold text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-100">Project Details</h2>
+                <h2 className={`text-3xl font-bold mb-6 ${isDarkMode
+                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-100'
+                  : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-blue-600'}`}
+                >
+                  Project Details
+                </h2>
                 
                 <div className="space-y-6">                
                   <motion.div 
-                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10 transition-all hover:border-blue-500/30"
+                    className={`rounded-2xl p-6 backdrop-blur-sm transition-all hover:border-blue-500/30 ${isDarkMode
+                      ? 'bg-white/5 border border-white/10'
+                      : 'bg-blue-50/40 border border-blue-100/50'}`}
                     whileHover={{ scale: 1.02, boxShadow: "0 15px 30px rgba(0,0,0,0.2)" }}
                     transition={{ duration: 0.2 }}
                   >
-                    <h3 className="text-2xl font-semibold text-white mb-4">Technologies Used</h3>
+                    <h3 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Technologies Used
+                    </h3>
                     <div className="flex flex-wrap gap-3">
                       {project.technologies && project.technologies.map((tech, index) => (
                         <motion.span 
                           key={index} 
-                          className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white text-sm font-medium px-5 py-2.5 rounded-full backdrop-blur-sm border border-blue-500/30"
-                          whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.3)" }}
+                          className={`text-sm font-medium px-5 py-2.5 rounded-full backdrop-blur-sm ${isDarkMode
+                            ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white border border-blue-500/30'
+                            : 'bg-gradient-to-r from-blue-100 to-purple-100 text-blue-900 border border-blue-300/50'}`}
+                          whileHover={{ scale: 1.05 }}
                         >
                           {tech}
                         </motion.span>
@@ -304,12 +329,16 @@ const ProjectDetail = () => {
                   </motion.div>
                 
                   <motion.div 
-                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10 transition-all hover:border-blue-500/30"
+                    className={`rounded-2xl p-6 backdrop-blur-sm transition-all hover:border-blue-500/30 ${isDarkMode
+                      ? 'bg-white/5 border border-white/10'
+                      : 'bg-blue-50/40 border border-blue-100/50'}`}
                     whileHover={{ scale: 1.02, boxShadow: "0 15px 30px rgba(0,0,0,0.2)" }}
                     transition={{ duration: 0.2 }}
                   >
-                    <h3 className="text-2xl font-semibold text-white mb-4">Key Features</h3>
-                    <ul className="space-y-4 text-blue-50/90 text-lg">
+                    <h3 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Key Features
+                    </h3>
+                    <ul className={`space-y-4 text-lg ${isDarkMode ? 'text-blue-50/90' : 'text-gray-700'}`}>
                       {project.features && project.features.map((feature, index) => (
                         <motion.li 
                           key={index}
@@ -318,7 +347,7 @@ const ProjectDetail = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <span className="mr-3 text-blue-400 text-xl mt-0.5">•</span>
+                          <span className={`mr-3 text-xl mt-0.5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>•</span>
                           <span>{feature}</span>
                         </motion.li>
                       ))}
@@ -340,7 +369,9 @@ const ProjectDetail = () => {
             <div className="relative transform hover:scale-105 transition-transform duration-500 z-10">
               {/* Mobile phone frame */}
               <motion.div 
-                className="relative w-[320px] h-[650px] bg-gray-900 rounded-[45px] p-4 shadow-[0_0_60px_rgba(59,130,246,0.4)] border-4 border-gray-800"
+                className={`relative w-[320px] h-[650px] rounded-[45px] p-4 border-4 ${isDarkMode 
+                  ? 'bg-gray-900 border-gray-800 shadow-[0_0_60px_rgba(59,130,246,0.4)]' 
+                  : 'bg-gray-800 border-gray-700 shadow-[0_0_60px_rgba(59,130,246,0.3)]'}`}
                 initial={{ rotateY: -20 }}
                 animate={{ rotateY: 0 }}
                 transition={{ duration: 1, ease: "easeOut" }}
@@ -381,9 +412,12 @@ const ProjectDetail = () => {
                         setIsPaused(true);
                         setTimeout(() => setIsPaused(false), 5000);
                       }}
-                      className="w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors"
-                      whileHover={{ scale: 1.1, backgroundColor: "rgba(0,0,0,0.7)" }}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${isDarkMode
+                        ? 'bg-black/40 text-white hover:bg-black/60'
+                        : 'bg-black/30 text-white hover:bg-black/50'}`}
+                      whileHover={{ scale: 1.1, backgroundColor: isDarkMode ? "rgba(0,0,0,0.7)" : "rgba(0,0,0,0.6)" }}
                       whileTap={{ scale: 0.9 }}
+                      style={{ backdropFilter: 'blur(4px)' }}
                     >
                       &#10094;
                     </motion.button>
@@ -393,9 +427,12 @@ const ProjectDetail = () => {
                         setIsPaused(true);
                         setTimeout(() => setIsPaused(false), 5000);
                       }}
-                      className="w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors"
-                      whileHover={{ scale: 1.1, backgroundColor: "rgba(0,0,0,0.7)" }}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${isDarkMode
+                        ? 'bg-black/40 text-white hover:bg-black/60'
+                        : 'bg-black/30 text-white hover:bg-black/50'}`}
+                      whileHover={{ scale: 1.1, backgroundColor: isDarkMode ? "rgba(0,0,0,0.7)" : "rgba(0,0,0,0.6)" }}
                       whileTap={{ scale: 0.9 }}
+                      style={{ backdropFilter: 'blur(4px)' }}
                     >
                       &#10095;
                     </motion.button>
@@ -412,7 +449,9 @@ const ProjectDetail = () => {
                           setTimeout(() => setIsPaused(false), 5000);
                         }}
                         className={`w-3 h-3 rounded-full transition-all ${
-                          index === currentImageIndex ? 'bg-blue-500 scale-125' : 'bg-white/50'
+                          index === currentImageIndex 
+                            ? 'bg-blue-500 scale-125' 
+                            : isDarkMode ? 'bg-white/50' : 'bg-black/40'
                         }`}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.8 }}
@@ -436,19 +475,25 @@ const ProjectDetail = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <motion.div 
-            className="bg-gradient-to-br from-[#1a1a1a]/90 to-[#252525]/80 backdrop-blur-xl rounded-3xl p-10 shadow-[0_10px_50px_rgba(0,0,0,0.3)] border border-white/10 relative overflow-hidden"
-            whileHover={{ boxShadow: "0 20px 80px rgba(0,0,0,0.3)" }}
+            className={`rounded-3xl p-10 relative overflow-hidden ${isDarkMode
+              ? 'bg-gradient-to-br from-[#1a1a1a]/90 to-[#252525]/80 shadow-[0_10px_50px_rgba(0,0,0,0.3)] border border-white/10'
+              : 'bg-gradient-to-br from-gray-50 to-white/90 shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-gray-200/50'}`}
+            whileHover={{ boxShadow: isDarkMode ? "0 20px 80px rgba(0,0,0,0.3)" : "0 20px 60px rgba(0,0,0,0.15)" }}
+            style={{ backdropFilter: 'blur(12px)' }}
           >
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl translate-y-1/2 -translate-x-1/2"></div>
             
-            <h2 className="text-3xl font-bold text-white mb-6 relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+            <h2 className={`text-3xl font-bold mb-6 relative z-10 ${isDarkMode
+              ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300'
+              : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700'}`}
+            >
               Project Overview
             </h2>
             
             <motion.div 
-              className="text-blue-50/90 text-lg leading-relaxed relative z-10"
+              className={`text-lg leading-relaxed relative z-10 ${isDarkMode ? 'text-blue-50/90' : 'text-gray-700'}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}

@@ -17,7 +17,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-black text-white overflow-hidden py-24">
+    <footer className="relative text-white overflow-hidden py-24 bg-black">
       {/* Background gradient elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(138,58,185,0.2)_0%,rgba(0,0,0,0)_50%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(98,0,234,0.2)_0%,rgba(0,0,0,0)_50%)]"></div>
