@@ -121,6 +121,108 @@ const ProjectDetail = () => {
     );
   }
 
+  const getOverviewContent = (projectId) => {
+    switch(projectId) {
+      case 1:
+        return (
+          <>
+            Welcome to Klynk: Enhance Your Kitchen Experience<br/><br/>
+            
+            Klynk is your comprehensive cooking and meal planning assistant, designed to support every aspect of your kitchen routine. Combining advanced guided cooking technology, smart control features, and a vast recipe discovery platform, Klynk tailors the entire cooking process to your food preferences and dietary needs. Whether you're a seasoned chef or just starting out, Klynk helps you create, cook, and share with ease.<br/><br/>
+            
+            - Guided Cooking: Step-by-Step Excellence<br/><br/>
+            
+            Experience Klynk's core feature - guided cooking. Our app provides step-by-step cooking instructions that simplify complex recipes. With detailed guidance at every step, you can cook confidently and precisely, ensuring delicious results every time. This guided approach helps you learn new techniques and manage multitasking in the kitchen effortlessly.<br/><br/>
+            
+            - Smart Cooking Made Simple<br/><br/>
+            
+            Our smart cooking system integrates seamlessly with your kitchen, providing precision control and the ability to scale recipes to suit any number of servings. Adjust recipes based on your calorie tracking goals and food preferences, ensuring that each meal meets your dietary needs.<br/><br/>
+            
+            - Discover Recipes That Inspire<br/><br/>
+            
+            Explore Klynk's extensive recipe database. From global cuisines to local favorites, filter recipes by ingredients, dietary restrictions, preparation time, and more. Discover new culinary horizons and expand your palate daily.<br/><br/>
+            
+            - Efficient Meal Planning<br/><br/>
+            
+            With our intuitive meal planner, organizing your weekly meals is easier than ever. Use Klynk to plan your meals by the day or week, automatically generating a grocery list that ensures you never miss an ingredient. The grocery list categorizes items by store sections, saving you time and effort during shopping trips.
+          </>
+        );
+      case 2:
+        return (
+          <>
+            I've developed a cutting-edge Movies Suggestion App using React Native, for an immersive movie-suggestion experience.<br/><br/>
+            
+            • Leveraging React Native, I've ensured seamless compatibility across iOS and Android platforms, reaching a wider audience.<br/><br/>
+            
+            • With state management using useContext, the app offers efficient data flow and integrates user preferences seamlessly. Ex: favourite page and user Profile data.<br/><br/>
+            
+            • I've prioritized usability and aesthetic appeal in the design, crafting a captivating UI to enhance user engagement. Like Windows Dimensions, KeyboardAvoidingView, etc<br/><br/>
+            
+            • By integrating TMDB APIs, the app provides personalized movie recommendations tailored to individual tastes.<br/><br/>
+            
+            • Thanks to React Native's built-in navigation libraries, exploring the app is effortless and intuitive.<br/><br/>
+            
+            • Users can customize their watchlist, save favorite movies, and personalize profiles, elevating the overall user experience.
+          </>
+        );
+      case 3:
+        return (
+          <>
+            Showing this world how capable I am.<br/><br/>
+            
+            Developed a responsive travel website, using HTML, CSS, JavaScript, and PHP. For the needs travel enthusiasts.<br/><br/>
+            
+            • Utilized HTML, CSS, and SCSS for modern, responsive design and seamless user experience. Implemented JavaScript for interactive features, enhancing user engagement and navigation.<br/><br/>
+            
+            • Integrated PHP for dynamic content, such as travel deals, user registration, and data management.<br/><br/>
+            
+            • Maintained and updated the website, ensuring accurate information and optimal performance.<br/><br/>
+            
+            • Link: <a href="https://lnkd.in/gcxMHn6v" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">https://lnkd.in/gcxMHn6v</a>
+          </>
+        );
+      case 4:
+        return (
+          <>
+            Showing my capabilities with "Bluetooth Thermal Printer"<br/><br/>
+            
+            Developed a React Native mobile app to seamlessly connect with Bluetooth Thermal Printers for receipt printing.<br/><br/>
+            
+            • Utilized Bluetooth Manager for efficient device management and state handling.<br/><br/>
+            
+            • Implemented intuitive UI for text input and printing initiation. Ensured cross-platform compatibility for iOS and Android.<br/><br/>
+            
+            • Designed user-friendly interfaces for easy interaction.<br/><br/>
+            
+            • Optimized performance for diverse devices.<br/><br/>
+            
+            • Code Link: <a href="https://lnkd.in/dkvdyUyh" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">https://lnkd.in/dkvdyUyh</a>
+          </>
+        );
+      case 5:
+        return (
+          <>
+            IoT module for multiple EVs charging platform - Digital Ecosystem<br/><br/>
+            
+            Constructed a charging ecosystem for a specific geo-mapping location.<br/><br/>
+            
+            The module can directly notify the user remotely about the available slots and the battery status.<br/><br/>
+            
+            A new algorithm is proposed that would calculate the priority of charge scheduling for a vehicle based on factors such as State of Charge, user priority.<br/><br/>
+            
+            Users can choose the stations from Grid-To-Vehicle (G2V), Building-To-Vehicle (B2V), and Vehicle-To-Vehicle (V2V) based on their needs.
+          </>
+        );
+      default:
+        return (
+          <>
+            This project showcases advanced skills in {project.category.toLowerCase()}. 
+            It was built with modern technologies and best practices in mind.
+          </>
+        );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] py-20 overflow-hidden">
       <motion.div 
@@ -136,21 +238,22 @@ const ProjectDetail = () => {
           whileTap={{ scale: 0.95 }}
         >
           <ArrowLeftLongSvg />
-          <span className="ml-2 text-lg">Back to Projects</span>
+          <span className="ml-2 text-lg font-medium">Back to Projects</span>
         </motion.button>
 
+        {/* Main container with project details (left) and image (right) */}
         <motion.div 
-          className="flex flex-col-reverse lg:flex-row gap-12"
+          className="flex flex-col lg:flex-row gap-8 mb-16"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
         >
           {/* Left Side - Project Info */}
           <motion.div 
-            className="w-full lg:w-3/5 mt-12 lg:mt-0"
+            className="w-full lg:w-3/5"
             variants={fadeInUp}
           >
-            <div className="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/10">
+            <div className="bg-gradient-to-br from-[#1a1a1a]/90 to-[#252525]/80 backdrop-blur-xl rounded-3xl p-8 shadow-[0_10px_50px_rgba(0,0,0,0.3)] border border-white/10 h-full">
               <motion.div 
                 className="flex flex-wrap gap-3 mb-6"
                 variants={fadeInUp}
@@ -161,14 +264,14 @@ const ProjectDetail = () => {
               </motion.div>
               
               <motion.h1 
-                className="text-4xl font-bold text-white mb-4 leading-tight"
+                className="text-3xl font-bold text-white mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100"
                 variants={fadeInUp}
               >
                 {project.title}
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-blue-50/90 mb-8 leading-relaxed"
+                className="text-xl text-blue-50/90 mb-6 leading-relaxed"
                 variants={fadeInUp}
               >
                 {project.description}
@@ -178,24 +281,12 @@ const ProjectDetail = () => {
                 className="border-t border-white/10 pt-8 mt-8"
                 variants={fadeInUp}
               >
-                <h2 className="text-3xl font-bold text-white mb-8">Project Details</h2>
+                <h2 className="text-3xl font-bold text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-100">Project Details</h2>
                 
-                <div className="space-y-12">
+                <div className="space-y-6">                
                   <motion.div 
-                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h3 className="text-2xl font-semibold text-white mb-4">Overview</h3>
-                    <p className="text-blue-50/90 text-lg leading-relaxed">
-                      This project showcases advanced skills in {project.category.toLowerCase()}. 
-                      It was built with modern technologies and best practices in mind.
-                    </p>
-                  </motion.div>
-                
-                  <motion.div 
-                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10"
-                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10 transition-all hover:border-blue-500/30"
+                    whileHover={{ scale: 1.02, boxShadow: "0 15px 30px rgba(0,0,0,0.2)" }}
                     transition={{ duration: 0.2 }}
                   >
                     <h3 className="text-2xl font-semibold text-white mb-4">Technologies Used</h3>
@@ -203,7 +294,7 @@ const ProjectDetail = () => {
                       {project.technologies && project.technologies.map((tech, index) => (
                         <motion.span 
                           key={index} 
-                          className="bg-blue-500/20 text-white text-sm font-medium px-4 py-2 rounded-full backdrop-blur-sm border border-blue-500/30"
+                          className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white text-sm font-medium px-5 py-2.5 rounded-full backdrop-blur-sm border border-blue-500/30"
                           whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.3)" }}
                         >
                           {tech}
@@ -213,22 +304,22 @@ const ProjectDetail = () => {
                   </motion.div>
                 
                   <motion.div 
-                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10"
-                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10 transition-all hover:border-blue-500/30"
+                    whileHover={{ scale: 1.02, boxShadow: "0 15px 30px rgba(0,0,0,0.2)" }}
                     transition={{ duration: 0.2 }}
                   >
                     <h3 className="text-2xl font-semibold text-white mb-4">Key Features</h3>
-                    <ul className="space-y-3 text-blue-50/90 text-lg">
+                    <ul className="space-y-4 text-blue-50/90 text-lg">
                       {project.features && project.features.map((feature, index) => (
                         <motion.li 
                           key={index}
-                          className="flex items-center"
+                          className="flex items-start"
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <span className="mr-3 text-blue-400">•</span>
-                          {feature}
+                          <span className="mr-3 text-blue-400 text-xl mt-0.5">•</span>
+                          <span>{feature}</span>
                         </motion.li>
                       ))}
                     </ul>
@@ -244,12 +335,12 @@ const ProjectDetail = () => {
             variants={fadeInUp}
           >
             {/* Gradient background for phone */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 blur-3xl transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-[500px] h-[500px] rounded-full"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 blur-3xl transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-[500px] h-[500px] rounded-full opacity-70"></div>
             
             <div className="relative transform hover:scale-105 transition-transform duration-500 z-10">
               {/* Mobile phone frame */}
               <motion.div 
-                className="relative w-[320px] h-[650px] bg-gray-900 rounded-[45px] p-4 shadow-[0_0_40px_rgba(59,130,246,0.3)] border-4 border-gray-800"
+                className="relative w-[320px] h-[650px] bg-gray-900 rounded-[45px] p-4 shadow-[0_0_60px_rgba(59,130,246,0.4)] border-4 border-gray-800"
                 initial={{ rotateY: -20 }}
                 animate={{ rotateY: 0 }}
                 transition={{ duration: 1, ease: "easeOut" }}
@@ -290,8 +381,8 @@ const ProjectDetail = () => {
                         setIsPaused(true);
                         setTimeout(() => setIsPaused(false), 5000);
                       }}
-                      className="w-10 h-10 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
-                      whileHover={{ scale: 1.1 }}
+                      className="w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors"
+                      whileHover={{ scale: 1.1, backgroundColor: "rgba(0,0,0,0.7)" }}
                       whileTap={{ scale: 0.9 }}
                     >
                       &#10094;
@@ -302,8 +393,8 @@ const ProjectDetail = () => {
                         setIsPaused(true);
                         setTimeout(() => setIsPaused(false), 5000);
                       }}
-                      className="w-10 h-10 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/50 transition-colors"
-                      whileHover={{ scale: 1.1 }}
+                      className="w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors"
+                      whileHover={{ scale: 1.1, backgroundColor: "rgba(0,0,0,0.7)" }}
                       whileTap={{ scale: 0.9 }}
                     >
                       &#10095;
@@ -334,6 +425,36 @@ const ProjectDetail = () => {
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-20 h-1.5 bg-gray-700 rounded-full"></div>
               </motion.div>
             </div>
+          </motion.div>
+        </motion.div>
+        
+        {/* Overview Section - Moved below the main container */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <motion.div 
+            className="bg-gradient-to-br from-[#1a1a1a]/90 to-[#252525]/80 backdrop-blur-xl rounded-3xl p-10 shadow-[0_10px_50px_rgba(0,0,0,0.3)] border border-white/10 relative overflow-hidden"
+            whileHover={{ boxShadow: "0 20px 80px rgba(0,0,0,0.3)" }}
+          >
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+            
+            <h2 className="text-3xl font-bold text-white mb-6 relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+              Project Overview
+            </h2>
+            
+            <motion.div 
+              className="text-blue-50/90 text-lg leading-relaxed relative z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              {getOverviewContent(project.id)}
+            </motion.div>
           </motion.div>
         </motion.div>
       </motion.div>
