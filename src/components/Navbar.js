@@ -71,7 +71,7 @@ const Navbar = () => {
   const resumeButtonClass = `bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-500 ${!cvUrl && 'opacity-70 cursor-not-allowed'}`;
 
   return (
-    <nav className="fixed top-5 w-11/12 z-50 mx-12 shadow-lg backdrop-blur-lg rounded-3xl" style={{ backgroundColor: 'var(--navbar-bg)', color: 'var(--text-color)' }}>
+    <nav className="fixed top-5 w-11/12 z-50 left-0 right-0 mx-auto shadow-lg backdrop-blur-lg rounded-3xl" style={{ backgroundColor: 'var(--navbar-bg)', color: 'var(--text-color)' }}>
       <div className="flex justify-between items-center p-4 w-full md:w-4/5 mx-auto">
         {/* Logo */}
         <Link to="/" className="flex items-center">
