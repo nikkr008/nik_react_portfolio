@@ -28,7 +28,7 @@ const Services = () => {
       </div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto w-full">
         {SERVICES.map((service, index) => (
           <motion.div
             key={service.id}
@@ -71,7 +71,7 @@ const Services = () => {
                 <span className="w-8 h-1 bg-purple-600 inline-block mr-2"></span>
                 Skills & Tools
               </h4>
-              <ul className="grid grid-cols-2 gap-2">
+              <ul className={`grid gap-3 ${service.skills.length > 6 ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-2'}`}>
                 {service.skills.map((skill, i) => (
                   <li 
                     key={i} 

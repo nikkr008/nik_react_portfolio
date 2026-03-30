@@ -21,9 +21,9 @@ export const PERSONAL_INFO = {
 
 // Skills categories with their respective technologies
 export const SKILL_CATEGORIES = {
-  APP_DEVELOPMENT: ['Android', 'Java', 'React Native', 'Expo', 'Firebase', 'API Integration'],
+  APP_DEVELOPMENT: ['React Native', 'Expo', 'CLI', 'Android', 'iOS', 'JavaScript', 'TypeScript', 'Redux', 'Firebase', 'React Navigation', 'Jest', 'API Integration'],
   WEB_DESIGN: ['Responsive Design', 'Tailwind CSS', 'Figma', 'UI Prototyping', 'Wireframes', 'Animation'],
-  WEB_DEVELOPMENT: ['React.js', 'Redux', 'Rest-API', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Bootstrap'],
+  WEB_DEVELOPMENT: ['React.js', 'Next.js', 'Three.js', 'Redux', 'Tailwind CSS', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Rest-API', 'Deployment', 'Git'],
 };
 
 // Skills with proficiency percentages for About section
@@ -48,7 +48,7 @@ export const SERVICES = [
   { 
     id: 'app-dev', 
     name: 'App Development',
-    description: 'Expert in native Android using Java and cross-platform development with React Native.',
+    description: 'Specializing in building high-performance, scalable, and cross-platform mobile applications extensively tailored with React Native.',
     skills: SKILL_CATEGORIES.APP_DEVELOPMENT,
     icon: 'app-icon.png',
   },
@@ -85,7 +85,7 @@ export const PROJECTS = [
   },
   {
     id: 2,
-    title: 'Movie List App',
+    title: 'Stream Mind',
     category: 'APP DEVELOPMENT',
     image: 'portfolio/moviesApp.png',
     description: 'Mobile application for tracking and organizing movies with personalized recommendations',
