@@ -108,7 +108,7 @@ const HomePage = () => {
       </div>
 
       <motion.div 
-        className="content-section relative w-full max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-12 py-20 md:py-0 z-10"
+        className="content-section relative w-full max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-12 pt-32 pb-10 md:py-0 z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
         transition={{ duration: 1, ease: "easeOut" }}

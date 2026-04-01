@@ -152,19 +152,19 @@ const ProjectDetail = () => {
       case 2:
         return (
           <>
-            I've developed a cutting-edge Movies Suggestion App using React Native, for an immersive movie-suggestion experience.<br/><br/>
+            • Built a modular, scalable React Native app using TypeScript strict mode and feature‑based architecture.<br/><br/>
             
-            • Leveraging React Native, I've ensured seamless compatibility across iOS and Android platforms, reaching a wider audience.<br/><br/>
+            • Implemented Firebase Authentication with persistent sessions via AsyncStorage and Firebase Realtime Database for and real‑time sync of watchlists/favorites.<br/><br/>
             
-            • With state management using useContext, the app offers efficient data flow and integrates user preferences seamlessly. Ex: favourite page and user Profile data.<br/><br/>
+            • Engineered progressive data loading with parallel TMDB API calls and independent state updates, Achieved &lt;2s load times with non-blocking UI rendering.<br/><br/>
             
-            • I've prioritized usability and aesthetic appeal in the design, crafting a captivating UI to enhance user engagement. Like Windows Dimensions, KeyboardAvoidingView, etc<br/><br/>
+            • Optimised performance using React.memo, useCallback, and custom hooks (useAuth, useMovieDetails, useFavourites) to minimise re-renders and decouple business logic.<br/><br/>
             
-            • By integrating TMDB APIs, the app provides personalized movie recommendations tailored to individual tastes.<br/><br/>
+            • Built centralised Axios API service layer with request/response interceptors for automatic token management, error handling, and offline awareness.<br/><br/>
             
-            • Thanks to React Native's built-in navigation libraries, exploring the app is effortless and intuitive.<br/><br/>
+            • Implemented accessibility‑friendly UI with WCAG-compliant accessibility, 10+ screen navigation, responsive design tokens, and rich‑media views (YouTube, image galleries).<br/><br/>
             
-            • Users can customize their watchlist, save favorite movies, and personalize profiles, elevating the overall user experience.
+            • Established error handling with user-friendly error displays, and graceful fallback states for network failures.
           </>
         );
       case 3:
